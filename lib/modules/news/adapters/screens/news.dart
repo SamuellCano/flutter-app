@@ -58,7 +58,7 @@ class FirstSection extends StatelessWidget {
           child: const Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'La Universidad Tecnológica Emiliano Zapata (UTEZ), es una Universidad pública creada en el año 2000 que forma parte del Sistema Nacional de Universidades...',
+              'La Universidad Tecnológica Emiliano Zapata (UTEZ), es una Universidad pública creada en el año 2000...',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
