@@ -5,7 +5,7 @@ import 'package:testgroupb/kernel/widgets/custom_list_user.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
-  
+
   Widget build(BuildContext context) {
     final Map item = {'name': 'Samuel Cano Pérez'};
     final Map item2 = {'name': 'Maximiliano Cano Pérez'};
@@ -16,10 +16,10 @@ class Home extends StatelessWidget {
         backgroundColor: ColorsApp.primaryColor,
       ),
       body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-        return CustomListUser(item: items[index]);
-      }),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return CustomListUser(item: items[index]);
+          }),
     );
   }
 }

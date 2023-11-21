@@ -17,14 +17,12 @@ class NetworkModule {
 
   final BaseOptions _options = BaseOptions(
     baseUrl: "https://tuurlbase.com/api/",
-    
     connectTimeout: const Duration(seconds: 15),
     receiveTimeout: const Duration(seconds: 15),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
-
 
   Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,3 +43,7 @@ class NetworkModule {
 
   Dio get instance => _dio!;
 }
+
+//Como mandarlo a llamar
+final dio = NetworkModule().instance;
+final response = dio.get('users');

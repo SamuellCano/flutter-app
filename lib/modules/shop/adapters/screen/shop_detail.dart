@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testgroupb/kernel/colors/colors_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopDetail extends StatelessWidget {
   ShopDetail({super.key});
@@ -15,6 +18,26 @@ class ShopDetail extends StatelessWidget {
     final descriprion = arguments['description'] ?? 'No hay descripción';
     final initialRating = arguments['initialRating'] ?? 0.0;
     final imageUrl = arguments['imageUrl'] ?? 'assets/images/logo-utez.png';
+    final price = arguments['price'] ?? 0.0;
+
+    Future addCart() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? data = prefs.getString('shopping_cart_list');
+      List list = [];
+      if (data != null) {
+        list = jsonDecode(data);
+      }
+      list.add({
+        'title': title,
+        'description': descriprion,
+        'image': imageUrl,
+        'price': price
+      });
+      String jsonString = jsonEncode(list);
+      prefs.setString('shopping_cart_list', jsonString);
+      print("Añadir en detail: " + jsonString);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -24,6 +47,9 @@ class ShopDetail extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             Image.asset(
               imageUrl,
               width: widthImage,
@@ -67,12 +93,21 @@ class ShopDetail extends StatelessWidget {
                 descriprion,
                 style: const TextStyle(fontSize: 16, color: Colors.black54),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Text('\$$price',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
           ],
         ),
       ),
       floatingActionButton: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          addCart();
+          Navigator.pushNamed(context, '/shop/shop-cart');
+        },
         style: OutlinedButton.styleFrom(
           foregroundColor: ColorsApp.successColor,
           backgroundColor: Colors.white,
